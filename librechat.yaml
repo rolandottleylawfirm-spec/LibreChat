@@ -7,7 +7,12 @@ cache: true
 interface:
   appTitle: "TOLF Legal AI"
   appDescription: "The Ottley Law Firm — Confidential Legal Research Platform"
+  agents: true
   showToolCalls: true
+  endpointsMenu: true
+  modelSelect: true
+  parameters: true
+  sidePanel: true
 
 # ── Registration ──────────────────────────────────────────────────────────────
 registration:
@@ -18,18 +23,10 @@ registration:
 
 # ── AI Endpoints ──────────────────────────────────────────────────────────────
 endpoints:
-  # Agents endpoint — enables the Agent Builder
   agents:
     disableBuilder: false
     recursionLimit: 25
-    capabilities:
-      - "tools"
-      - "actions"
-      - "artifacts"
-      - "context"
-      - "web_search"
 
-  # AWS Bedrock — the LLM
   bedrock:
     availableRegions:
       - us-east-1
