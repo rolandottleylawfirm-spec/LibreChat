@@ -26,11 +26,8 @@ endpoints:
   bedrock:
     availableRegions:
       - us-east-1
-    titleModel: "anthropic.claude-3-5-haiku-20241022-v1:0"
-    models:
-      default: ["us.anthropic.claude-sonnet-4-6", "us.anthropic.claude-opus-4-6-v1"]
-      fetch: false
-    modelDisplayLabel: "TOLF Legal AI"
+    titleModel: "us.anthropic.claude-sonnet-4-6"
+    streamRate: 35
 
 # ── MCP Servers — tools that appear as visible steps ─────────────────────────
 mcpServers:
