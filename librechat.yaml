@@ -3,7 +3,6 @@ version: 1.1.5
 
 cache: true
 
-# ── Interface ─────────────────────────────────────────────────────────────────
 interface:
   appTitle: "TOLF Legal AI"
   appDescription: "The Ottley Law Firm — Confidential Legal Research Platform"
@@ -14,14 +13,12 @@ interface:
   parameters: true
   sidePanel: true
 
-# ── Registration ──────────────────────────────────────────────────────────────
 registration:
   socialLogins: []
   allowedDomains:
     - "theottleylawfirm.com"
     - "tolfpc.com"
 
-# ── AI Endpoints ──────────────────────────────────────────────────────────────
 endpoints:
   agents:
     disableBuilder: false
@@ -33,10 +30,10 @@ endpoints:
     titleModel: "us.anthropic.claude-sonnet-4-6"
     streamRate: 35
 
-# ── MCP Servers ───────────────────────────────────────────────────────────────
+# Using streamable-http — more reliable than SSE for Railway
 mcpServers:
   tolf-legal-tools:
-    type: sse
-    url: "${MCP_SERVER_URL}/sse"
-    timeout: 30000
-    initTimeout: 15000
+    type: streamable-http
+    url: "${MCP_SERVER_URL}/mcp"
+    timeout: 60000
+    initTimeout: 30000
