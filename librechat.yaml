@@ -1,107 +1,34 @@
 # LibreChat Configuration — The Ottley Law Firm
-# Place this file at: /path/to/librechat/librechat.yaml
-
 version: 1.1.5
 
 cache: true
 
-# ── Interface settings ────────────────────────────────────────────────────────
+# ── Interface ─────────────────────────────────────────────────────────────────
 interface:
   appTitle: "TOLF Legal AI"
   appDescription: "The Ottley Law Firm — Confidential Legal Research Platform"
-  favicon: ""
-  # Show tool calls as visible steps in the UI
+  agents: true
   showToolCalls: true
 
-# ── Registration / access control ────────────────────────────────────────────
+# ── Registration ──────────────────────────────────────────────────────────────
 registration:
   socialLogins: []
   allowedDomains:
     - "theottleylawfirm.com"
     - "tolfpc.com"
 
-# ── AI Model providers ────────────────────────────────────────────────────────
+# ── AI Endpoints ──────────────────────────────────────────────────────────────
 endpoints:
-  # AWS Bedrock — the LLM that runs the conversation
   bedrock:
     availableRegions:
       - us-east-1
     titleModel: "us.anthropic.claude-sonnet-4-6"
     streamRate: 35
 
-# ── MCP Servers — tools that appear as visible steps ─────────────────────────
+# ── MCP Servers ───────────────────────────────────────────────────────────────
 mcpServers:
   tolf-legal-tools:
-    # URL of your MCP server deployed on Railway
-    # Replace with your actual Railway MCP service URL
-    url: "${MCP_SERVER_URL}/sse"
     type: sse
-    # Tools from this server appear in the agent builder
-    # and show as visible steps during generation
-
-# ── Agents ────────────────────────────────────────────────────────────────────
-agents:
-  # Roland's primary legal agent
-  - id: "roland-legal-agent"
-    name: "Roland Legal Agent"
-    description: "Full legal AI with CourtListener, document generation, case memory, and all TOLF tools"
-    model: "us.anthropic.claude-sonnet-4-6"
-    provider: bedrock
-    instructions: |
-      You are an elite legal AI assistant serving Roland G. Ottley, Esq., PA-C of The Ottley Law Firm, P.C.
-
-      Roland's contact information — use in ALL documents:
-        Name:    Roland G. Ottley, Esq., PA-C
-        Firm:    The Ottley Law Firm, P.C.
-        Address: 1063 Winthrop Street, Brooklyn, NY 11212
-        Cell:    (917) 478-1012
-        Office:  (718) 221-2162
-        Fax:     (718) 221-2164
-        Email:   rottley@tolfpc.com
-
-      Roland practices: immigration law, personal injury, vaccine injury (VICP), consumer fraud (GBL §349),
-      landlord-tenant, civil rights, and patent/IP work.
-
-      TOOL USE RULES:
-      - Search CourtListener for ANY case law question — never cite cases from memory without verifying
-      - Save important findings to case memory so they persist across sessions
-      - Generate Word documents for all formal drafts — never just output text for legal documents
-      - Calculate deadlines precisely — statutes of limitations are critical
-      - Fetch uploaded files before editing them — always read the current version first
-
-      DOCUMENT RULES:
-      - Court captions ONLY for actual court filings with docket numbers
-      - Patent/USPTO documents: NEVER add court caption
-      - Always include Roland's full contact info in every document
-      - Demand letters, memos, research: no caption
-
-      PROFESSIONAL STANDARDS:
-      - You are producing real legal work product, not examples
-      - Cite actual cases with verified citations
-      - Flag any uncertainty — Roland relies on this for client matters
-
-    tools:
-      - tool_name: search_courtlistener
-        pluginKey: tolf-legal-tools
-      - tool_name: search_web
-        pluginKey: tolf-legal-tools
-      - tool_name: get_case_memory
-        pluginKey: tolf-legal-tools
-      - tool_name: save_case_memory
-        pluginKey: tolf-legal-tools
-      - tool_name: generate_legal_document
-        pluginKey: tolf-legal-tools
-      - tool_name: list_uploaded_files
-        pluginKey: tolf-legal-tools
-      - tool_name: fetch_uploaded_file
-        pluginKey: tolf-legal-tools
-      - tool_name: calculate_deadline
-        pluginKey: tolf-legal-tools
-      - tool_name: read_url
-        pluginKey: tolf-legal-tools
-      - tool_name: write_file
-        pluginKey: tolf-legal-tools
-      - tool_name: search_case_law
-        pluginKey: tolf-legal-tools
-      - tool_name: verify_citation
-        pluginKey: tolf-legal-tools
+    url: "${MCP_SERVER_URL}/sse"
+    timeout: 30000
+    initTimeout: 15000
